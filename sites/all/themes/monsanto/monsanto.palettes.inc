@@ -3,7 +3,7 @@
 /**
  * Returns an array of color palettes keyed on class name.
  */
-function commons_origins_get_palettes() {
+function monsanto_get_palettes() {
   $palettes = array(
     'default' => 'Default',
     'palette-gray-lightgray-blue' => 'Grey/light grey/blue',
@@ -20,7 +20,7 @@ function commons_origins_get_palettes() {
   );
 
   foreach ($palettes as $key => $name) {
-    $palettes[$key] = theme('image', array('alt' => t($name), 'title' => t($name), 'path' => drupal_get_path('theme', 'commons_origins') . "/images/palettes/$key.png"));
+    $palettes[$key] = theme('image', array('alt' => t($name), 'title' => t($name), 'path' => drupal_get_path('theme', 'monsanto') . "/images/palettes/$key.png"));
   }
   return $palettes;
 }
@@ -28,24 +28,24 @@ function commons_origins_get_palettes() {
 /**
  * Add a color palette selection to a form.
  */
-function commons_origins_palettes_form(&$form) {
-  $form['commons_origins_palette_fieldset'] = array(
+function monsanto_palettes_form(&$form) {
+  $form['monsanto_palette_fieldset'] = array(
     '#type' => 'fieldset',
     '#title' => t('Color palette'),
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
-  $form['commons_origins_palette_fieldset']['commons_origins_palette'] = array(
+  $form['monsanto_palette_fieldset']['monsanto_palette'] = array(
     '#type' => 'radios',
-    '#options' => commons_origins_get_palettes(),
-    '#default_value' => variable_get('commons_origins_palette', 'default'),
+    '#options' => monsanto_get_palettes(),
+    '#default_value' => variable_get('monsanto_palette', 'default'),
   );
-  $form['#submit'][] = 'commons_origins_color_palettes_form_submit';
+  $form['#submit'][] = 'monsanto_color_palettes_form_submit';
 }
 
 /**
  * Submit handler for the Commons Origins palette selection form.
  */
-function commons_origins_color_palettes_form_submit($form, &$form_state) {
-  variable_set('commons_origins_palette', $form_state['values']['commons_origins_palette']);
+function monsanto_color_palettes_form_submit($form, &$form_state) {
+  variable_set('monsanto_palette', $form_state['values']['monsanto_palette']);
 }
