@@ -185,8 +185,7 @@ function flag_help($path, $arg) {
  * Implements hook_init().
  */
 function flag_init() {
-  $path = drupal_get_path('module', 'flag');
-  include_once $path . '/includes/flag.actions.inc';
+  module_load_include('inc', 'flag', 'includes/flag.actions');
 }
 
 /**
@@ -863,7 +862,7 @@ function flag_user_view($account, $view_mode) {
       // User has no permission to use this flag.
       continue;
     }
-    if (!$flag->uses_hook_link(array())) {
+    if (!$flag->show_on_profile) {
       // Flag not set to appear on profile.
       continue;
     }
@@ -1536,18 +1535,6 @@ function _flag_link_type_descriptions() {
   return $options;
 }
 
-/**
- * Return an array of flag link fields that are dependent on a link type.
- */
-function _flag_link_type_fields() {
-  $options = array();
-  $types = flag_get_link_types();
-  foreach ($types as $type_name => $type) {
-    $options[$type_name] = array_keys($type['options']);
-  }
-  return $options;
-}
-
 // ---------------------------------------------------------------------------
 // Non-Views public API
 
@@ -1783,32 +1770,39 @@ function flag_get_default_flags($include_disabled = FALSE) {
   $default_flags = array();
   $flag_status = variable_get('flag_default_flag_status', array());
 
+  $default_flags_info = array();
   foreach (module_implements('flag_default_flags') as $module) {
     $function = $module . '_flag_default_flags';
     foreach ($function() as $flag_name => $flag_info) {
       // Backward compatibility: old exported default flags have their names
-      // in $flag_info instead, so we use the += operator to not overwrite it.
-      $flag_info += array(
+      // in $flag_info instead, so we use the + operator to not overwrite it.
+      $default_flags_info[$flag_name] = $flag_info + array(
         'name' => $flag_name,
         'module' => $module,
       );
-      $flag = flag_flag::factory_by_array($flag_info);
+    }
+  }
 
-      // Disable flags that are not at the current API version.
-      if (!$flag->is_compatible()) {
-        $flag->status = FALSE;
-      }
+  // Allow modules to alter definitions using hook_flag_default_flags_alter().
+  drupal_alter('flag_default_flags', $default_flags_info);
 
-      // Add flags that have been enabled.
-      if ((!isset($flag_status[$flag->name]) && (!isset($flag->status) || $flag->status)) || !empty($flag_status[$flag->name])) {
-        $flag->status = TRUE;
-        $default_flags[$flag->name] = $flag;
-      }
-      // Add flags that have been disabled.
-      elseif ($include_disabled) {
-        $flag->status = FALSE;
-        $default_flags[$flag->name] = $flag;
-      }
+  foreach ($default_flags_info as $flag_info) {
+    $flag = flag_flag::factory_by_array($flag_info);
+
+    // Disable flags that are not at the current API version.
+    if (!$flag->is_compatible()) {
+      $flag->status = FALSE;
+    }
+
+    // Add flags that have been enabled.
+    if ((!isset($flag_status[$flag->name]) && (!isset($flag->status) || $flag->status)) || !empty($flag_status[$flag->name])) {
+      $flag->status = TRUE;
+      $default_flags[$flag->name] = $flag;
+    }
+    // Add flags that have been disabled.
+    elseif ($include_disabled) {
+      $flag->status = FALSE;
+      $default_flags[$flag->name] = $flag;
     }
   }
 
@@ -1947,6 +1941,7 @@ function flag_get_user_flags($content_type, $content_id = NULL, $uid = NULL, $si
  *   ID that flagged the content. Each flagged content array is structured as
  *   an array of flag information for each flag, keyed by the flag name. If
  *   a flag name is specified, only the information for that flag is returned.
+ *   If no flags were found an empty array is returned.
  */
 function flag_get_content_flags($content_type, $content_id, $flag_name = NULL) {
   $content_flags = &drupal_static(__FUNCTION__, array());
@@ -1959,6 +1954,7 @@ function flag_get_content_flags($content_type, $content_id, $flag_name = NULL) {
       ->condition('content_id', $content_id)
       ->orderBy('timestamp', 'DESC')
       ->execute();
+    $content_flags[$content_type][$content_id] = array();
     foreach ($result as $flag_content) {
       // Build a list of flaggings for all flags by user.
       $content_flags[$content_type][$content_id]['users'][$flag_content->uid][$flag_names[$flag_content->fid]] = $flag_content;
@@ -1966,8 +1962,16 @@ function flag_get_content_flags($content_type, $content_id, $flag_name = NULL) {
       $content_flags[$content_type][$content_id]['flags'][$flag_names[$flag_content->fid]][$flag_content->uid] = $flag_content;
     }
   }
-
-  return isset($flag_name) ? $content_flags[$content_type][$content_id]['flags'][$flag_name] : $content_flags[$content_type][$content_id]['users'];
+  if (empty($content_flags[$content_type][$content_id])) {
+    return array();
+  }
+  if (isset($flag_name)) {
+    if (isset($content_flags[$content_type][$content_id]['flags'][$flag_name])) {
+      return $content_flags[$content_type][$content_id]['flags'][$flag_name];
+    }
+    return array();
+  }
+  return $content_flags[$content_type][$content_id]['users'];
 }
 
 /**

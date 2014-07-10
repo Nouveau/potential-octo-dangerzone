@@ -54,6 +54,18 @@ function hook_flag_default_flags() {
 }
 
 /**
+ * Alter the definition of default flags.
+ *
+ * @param array &$flags
+ *   An array keyed by flag machine name containing flag definitions.
+ */
+function hook_flag_default_flags_alter(&$flags) {
+  if (!empty($flags['bookmark'])) {
+    $flags['bookmark']['title'] = 'Bananana Bookmark';
+  }
+}
+
+/**
  * Allow modules to alter a flag when it is initially loaded.
  *
  * @see flag_get_flags().
@@ -248,5 +260,17 @@ function hook_flag_reset($flag, $entity_id, $rows) {
  * @see flag_build_javascript_info()
  */
 function hook_flag_javascript_info_alter() {
+
+}
+
+/**
+ * Alter a flag object that is being prepared for exporting.
+ *
+ * @param $flag
+ *  The flag object.
+ *
+ * @see flag_export_flags()
+ */
+function hook_flag_export_alter($flag) {
 
 }
