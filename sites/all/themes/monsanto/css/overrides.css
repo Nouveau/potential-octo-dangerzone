@@ -45,23 +45,19 @@ a:link, a:visited, .palette-black-green h1.node-title a {
   min-height: 60px;
 }
 
-body.node-type-group #main-content-header,
-body.page-user #main-content-header {
+body.node-type-group #main-content-header {
   padding-top: 100px;
 }
-body.node-type-group #page-title,
-body.page-user #page-title {
+body.node-type-group #page-title {
   float: left;
   margin-left: 20px;
   color: #ffffff;
 }
-body.node-type-group #tasks,
-body.page-user #tasks {
+body.node-type-group #tasks {
   float: right;
   margin-bottom: 0;
 }
-body.node-type-group #tasks ul,
-body.page-user #tasks ul {
+body.node-type-group #tasks ul {
   margin-bottom: 0;
 }
 
