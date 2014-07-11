@@ -22,3 +22,7 @@
 .palette-black-green .action-item-primary, .palette-black-green .action-item-small-primary, .palette-black-green .action-item-large-primary, .palette-black-green .commons-sign-up, .palette-black-green .pane-commons-groups-commons-groups-create-group a, .pane-commons-groups-commons-groups-create-group .palette-black-green a, .palette-black-green .pane-commons-events-commons-events-create-event-link a, .pane-commons-events-commons-events-create-event-link .palette-black-green a {
   background-color: $green;
 }
+
+.view-commons-activity-streams-activity .views-row {
+  min-height: 60px;
+}
