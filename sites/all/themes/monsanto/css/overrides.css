@@ -20,6 +20,14 @@ html {
   margin-top: 0.5em;
 }
 
+.header-color-row-two {
+  min-height: 0.8em;
+}
+
+.block-search .container-inline .form-item-custom-search-types {
+  padding-left: 1em;
+}
+
 #menu-bar.nav ul.menu li:hover, #menu-bar.nav ul.menu li.active-trail {
   background: none;
 }
@@ -37,8 +45,4 @@ html {
 #menu-bar.nav ul.menu li a {
   background-position: center 1.25em;
   padding-top: 2.5em;
-}
-
-.header-color-row-two {
-  min-height: 0.8em;
 }

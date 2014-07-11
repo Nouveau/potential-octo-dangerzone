@@ -7,25 +7,10 @@
   margin-top: 0.5em;
 }
 
-#menu-bar.nav ul.menu li:hover, #menu-bar.nav ul.menu li.active-trail {
-  background: none;
-}
-
-.palette-black-green #menu-bar.nav ul.menu li a, #menu-bar.nav ul.menu li .palette-black-green a {
-  border-left: none;
-  box-shadow: none;
-}
-
-.palette-black-green #menu-bar.nav {
-  border-right: none;
-  box-shadow: none;
-}
-
-#menu-bar.nav ul.menu li a {
-  background-position: center 1.25em;
-  padding-top: 2.5em;
-}
-
 .header-color-row-two {
   min-height: 0.8em;
+}
+
+.block-search .container-inline .form-item-custom-search-types {
+  padding-left: 1em;
 }
