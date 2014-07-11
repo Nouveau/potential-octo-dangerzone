@@ -13,6 +13,13 @@
 }
 
 #menu-bar.nav ul.menu li a {
-  background-position: center 1.25em;
-  padding-top: 2.5em;
+  background-position: center 1.5em;
+  padding-top: 3em;
+}
+
+.palette-black-green .quicktabs-style-commons-pills ul.quicktabs-tabs li a, .palette-black-green .quicktabs-style-commons-pills ul.quicktabs-tabs li a span, .palette-black-green ul.primary.tabs li a, .palette-black-green ul.primary.tabs li a span {
+  color: darken($brown, 5%);
+  &:hover, &:active {
+    color: $brown;
+  }
 }

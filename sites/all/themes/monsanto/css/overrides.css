@@ -1,14 +1,19 @@
 html {
   background: url(../images/leaves.png) #f3f4eb bottom right no-repeat;
+  line-height: 1.5;
+}
+
+a:link, a:visited, .palette-black-green h1.node-title a {
+  color: #478b32;
+}
+
+.palette-black-green h2 {
+  color: #4c3a2c;
 }
 
 #footer {
   border-top: none;
   box-shadow: none;
-}
-
-.palette-black-green .action-item-primary, .palette-black-green .action-item-small-primary, .palette-black-green .action-item-large-primary, .palette-black-green .commons-sign-up, .palette-black-green .pane-commons-groups-commons-groups-create-group a, .pane-commons-groups-commons-groups-create-group .palette-black-green a, .palette-black-green .pane-commons-events-commons-events-create-event-link a, .pane-commons-events-commons-events-create-event-link .palette-black-green a {
-  background-color: green;
 }
 
 .palette-black-green .header-color-row-one {
@@ -28,6 +33,14 @@ html {
   padding-left: 1em;
 }
 
+.palette-black-green .partial-node-form-title {
+  color: #4c3a2c;
+}
+
+.palette-black-green .action-item-primary, .palette-black-green .action-item-small-primary, .palette-black-green .action-item-large-primary, .palette-black-green .commons-sign-up, .palette-black-green .pane-commons-groups-commons-groups-create-group a, .pane-commons-groups-commons-groups-create-group .palette-black-green a, .palette-black-green .pane-commons-events-commons-events-create-event-link a, .pane-commons-events-commons-events-create-event-link .palette-black-green a {
+  background-color: #478b32;
+}
+
 #menu-bar.nav ul.menu li:hover, #menu-bar.nav ul.menu li.active-trail {
   background: none;
 }
@@ -43,6 +56,13 @@ html {
 }
 
 #menu-bar.nav ul.menu li a {
-  background-position: center 1.25em;
-  padding-top: 2.5em;
+  background-position: center 1.5em;
+  padding-top: 3em;
+}
+
+.palette-black-green .quicktabs-style-commons-pills ul.quicktabs-tabs li a, .palette-black-green .quicktabs-style-commons-pills ul.quicktabs-tabs li a span, .palette-black-green ul.primary.tabs li a, .palette-black-green ul.primary.tabs li a span {
+  color: #3c2e23;
+}
+.palette-black-green .quicktabs-style-commons-pills ul.quicktabs-tabs li a:hover, .palette-black-green .quicktabs-style-commons-pills ul.quicktabs-tabs li a:active, .palette-black-green .quicktabs-style-commons-pills ul.quicktabs-tabs li a span:hover, .palette-black-green .quicktabs-style-commons-pills ul.quicktabs-tabs li a span:active, .palette-black-green ul.primary.tabs li a:hover, .palette-black-green ul.primary.tabs li a:active, .palette-black-green ul.primary.tabs li a span:hover, .palette-black-green ul.primary.tabs li a span:active {
+  color: #4c3a2c;
 }
