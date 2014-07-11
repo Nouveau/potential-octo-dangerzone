@@ -45,6 +45,22 @@ a:link, a:visited, .palette-black-green h1.node-title a {
   min-height: 60px;
 }
 
+body.node-type-group #main-content-header {
+  padding-top: 100px;
+}
+body.node-type-group #page-title {
+  float: left;
+  margin-left: 20px;
+  color: #ffffff;
+}
+body.node-type-group #tasks {
+  float: right;
+  margin-bottom: 0;
+}
+body.node-type-group #tasks ul {
+  margin-bottom: 0;
+}
+
 #menu-bar.nav ul.menu li:hover, #menu-bar.nav ul.menu li.active-trail {
   background: none;
 }
