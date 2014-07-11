@@ -11,6 +11,10 @@ a:link, a:visited, .palette-black-green h1.node-title a {
   color: #4c3a2c;
 }
 
+h3 {
+  color: #478b32;
+}
+
 #footer {
   border-top: none;
   box-shadow: none;
